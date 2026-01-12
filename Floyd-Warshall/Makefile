@@ -1,13 +1,13 @@
 .PHONY: run
 
 floyd_scalar: floyd_scalar.c
-	gcc -O3 $^ -march=native -o $@ -Wall -Wextra -lgomp -fopenmp
+	gcc -O3 $^ -march=native -o $@ -Wall -Wextra
 
 floyd_blocked-matrix: floyd_blocked-matrix.c
-	gcc -O3 $^ -march=native -o $@ -Wall -Wextra -lgomp -fopenmp
+	gcc -O3 $^ -march=native -o $@ -Wall -Wextra -fopenmp
 
 floyd_openmp: floyd_openmp.c
-	gcc -O3 $^ -march=native -o $@ -Wall -Wextra -lgomp -fopenmp
+	gcc -O3 $^ -march=native -o $@ -Wall -Wextra -fopenmp
 
 run: floyd_scalar
 	perf stat ./floyd_scalar
