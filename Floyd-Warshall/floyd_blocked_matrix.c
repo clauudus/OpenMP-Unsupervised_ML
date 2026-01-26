@@ -116,7 +116,7 @@ int main(int argc, char **argv)
 	float *Dist = (float *)malloc(sizeof(float) * N * N);
 	init_matrix(Dist, N);
 
-	//floyd(Dist, N, NTHR);
+	//floyd(Dist, N, tamaño submatriz);
 	floyd_warshall_blocked(Dist, N, 8);
 	checksum(Dist, N);
 	free(Dist);
