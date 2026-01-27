@@ -23,7 +23,7 @@ if command -v dmidecode &> /dev/null; then
     echo "Memory type:"
     sudo dmidecode -t memory | grep -E "Type:|Speed:" | grep -v "Unknown" | head -n 4
 else
-    echo "Memory type: (requires 'sudo dmidecode')"
+    echo "Memory type: (requires 'sudo dmidecode')" #I didn't have sudo permisions,so I couldn't try this line, could be wrong"
 fi
 
 echo -e "\n--- CACHE INFO ---"
