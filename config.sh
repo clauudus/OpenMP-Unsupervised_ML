@@ -3,10 +3,10 @@
 echo "==================== SYSTEM INFORMATION ===================="
 
 echo -e "\n--- CPU INFO ---"
-# Model i freq base (aprox)
+# Model & base freq (aprox)
 lscpu | grep -E 'Model name|CPU MHz|Socket|Core\(s\) per socket|Thread'
 
-# Nombre de cores físics i lògics
+# Nº of phisical and logic cores
 PHYSICAL_CORES=$(lscpu | awk '/Core\(s\) per socket/ {cores=$4} /Socket\(s\)/ {sockets=$2} END {print cores*sockets}')
 LOGICAL_CORES=$(lscpu | awk '/^CPU\(s\)/ {print $2}')
 
@@ -14,7 +14,7 @@ echo "Physical cores: $PHYSICAL_CORES"
 echo "Logical cores:  $LOGICAL_CORES"
 
 echo -e "\n--- MEMORY INFO ---"
-# Memòria total
+# Total Memory
 MEM_TOTAL=$(free -h | awk '/Mem:/ {print $2}')
 echo "Total RAM: $MEM_TOTAL"
 
@@ -27,7 +27,7 @@ else
 fi
 
 echo -e "\n--- CACHE INFO ---"
-# L1, L2, L3 (if they're available
+# L1, L2, L3 (if they're available)
 lscpu | grep -E 'L1d cache|L1i cache|L2 cache|L3 cache'
 
 echo -e "\n--- OPERATING SYSTEM ---"
