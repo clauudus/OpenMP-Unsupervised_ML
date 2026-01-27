@@ -1,6 +1,10 @@
 #!/bin/bash
 
-files=""
+set -euo pipefail
+
+variants=("floyd_blocked_matrix" "floyd_openmp" "floyd_scalar")
+
+files=()
 
 for opt in 2 3; do
 	for native in 0 1; do
@@ -11,9 +15,14 @@ for opt in 2 3; do
 		make clean
 		make OPTFLAGS="-O${opt} ${march}"
 
-		new="./floyd_blocked_matrix-${opt}-${native}"
-		cp ./floyd_blocked_matrix $new
-		files="${files} ${new}"
+		for v in "${variants[@]}; do
+			if [-x "./$v" ]; then
+				new="./${v}-${opt}-${native}"
+				cp "./$v" "$new"
+				chmod +x "$new"
+				files+=("$new")
+			fi
+		done
 	done
 done
 
