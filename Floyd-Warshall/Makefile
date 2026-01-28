@@ -14,10 +14,10 @@ run: floyd
 	perf stat ./floyd_blocked-matrix
 	perf stat ./floyd_openmp
 
-format: format
-	clang-format floyd_scalar.c
-	clang-format floyd_blocked-matrix.c
-	clang-format floyd_openmp.c
+format:
+	clang-format -i floyd_scalar.c
+	clang-format -i floyd_blocked-matrix.c
+	clang-format -i floyd_openmp.c
 
 clean:
 	rm -f floyd_scalar
