@@ -41,46 +41,44 @@ static void checksum(float Dist[], int N)
 }
 
 inline void floyd_warshall_in_place(float* C, const float* A, const float* B, const int b, const int n) {
-  for (int k = 0; k < b; k++) {
-    int kth = k*n;
-    for (int i = 0; i < b; i++) {
-      for (int j = 0; j < b; j++) {
-        int sum = A[i*n + k] + B[kth + j];
-        if (C[i*n + j] > sum) {
-          C[i*n + j] = sum;
-        }
-      }
-    }
-  }
+	for (int k = 0; k < b; k++) {
+    	int kth = k*n;
+    	for (int i = 0; i < b; i++) {
+      		for (int j = 0; j < b; j++) {
+        		int sum = A[i*n + k] + B[kth + j];
+        		if (C[i*n + j] > sum) {
+          			C[i*n + j] = sum;
+        		}
+      		}
+    	}
+	}
 }
 
 void floyd_warshall_blocked(float* output, const int n, const int b) {
 
-  //b divides n
-  const int blocks = n / b;
-  int i, j;
+	//b divides n
+  	const int blocks = n / b;
+  	int i, j;
 
-  //[i][j] == [i * input_width * block_width + j * block_width]
-  for (int k = 0; k < blocks; k++) {
-    floyd_warshall_in_place(&output[k*b*n + k*b], &output[k*b*n + k*b], &output[k*b*n + k*b], b, n);
-//#pragma omp parallel for
-#pragma omp parallel for private(j) schedule(static)
-    for (j = 0; j < blocks; j++) {
-      if (j == k) continue;
-      floyd_warshall_in_place(&output[k*b*n + j*b], &output[k*b*n + k*b], &output[k*b*n + j*b], b, n);
-    }
-//#pragma omp parallel for
-#pragma omp parallel for private(i, j) schedule(static)
-    for (i = 0; i < blocks; i++) {
-      if (i == k)
-	continue;
-      floyd_warshall_in_place(&output[i*b*n + k*b], &output[i*b*n + k*b], &output[k*b*n + k*b], b, n);
-      for (j = 0; j < blocks; j++) {
-	    if (j == k) continue;
-	    floyd_warshall_in_place(&output[i*b*n + j*b], &output[i*b*n + k*b], &output[k*b*n + j*b], b, n);
-      }
-    }
-  }
+  	//[i][j] == [i * input_width * block_width + j * block_width]
+	for (int k = 0; k < blocks; k++) {
+		floyd_warshall_in_place(&output[k*b*n + k*b], &output[k*b*n + k*b], &output[k*b*n + k*b], b, n);
+		#pragma omp parallel for private(j) schedule(static)
+		for (j = 0; j < blocks; j++) {
+    		if (j == k) continue;
+      		floyd_warshall_in_place(&output[k*b*n + j*b], &output[k*b*n + k*b], &output[k*b*n + j*b], b, n);
+    	}
+		//#pragma omp parallel for
+		#pragma omp parallel for private(i, j) schedule(static)
+    	for (i = 0; i < blocks; i++) {
+      		if (i == k) continue;
+      		floyd_warshall_in_place(&output[i*b*n + k*b], &output[i*b*n + k*b], &output[k*b*n + k*b], b, n);
+      		for (j = 0; j < blocks; j++) {
+	    		if (j == k) continue;
+	    		floyd_warshall_in_place(&output[i*b*n + j*b], &output[i*b*n + k*b], &output[k*b*n + j*b], b, n);
+			}
+		}
+	}
 }
 
 void floyd(float Dist[], int N, int NTHR)
@@ -88,7 +86,7 @@ void floyd(float Dist[], int N, int NTHR)
 	int i, j, k;
 
 	for (k = 0; k < N; k++) {
-#pragma omp parallel for private(i, j) schedule(static)
+		#pragma omp parallel for private(i, j) schedule(static)
 		for (i = 0; i < N; i++) {
 			float Dik = Dist[i * N + k];
 			for (j = 0; j < N; j++) {
