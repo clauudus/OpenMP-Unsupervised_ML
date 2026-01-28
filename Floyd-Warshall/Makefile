@@ -1,4 +1,4 @@
-.PHONY: run
+.PHONY: run format
 
 floyd_scalar: floyd_scalar.c
 	gcc -O3 $^ -march=native -o $@ -Wall -Wextra
@@ -9,14 +9,15 @@ floyd_blocked-matrix: floyd_blocked-matrix.c
 floyd_openmp: floyd_openmp.c
 	gcc -O3 $^ -march=native -o $@ -Wall -Wextra -fopenmp
 
-run: floyd_scalar
+run: floyd
 	perf stat ./floyd_scalar
-
-run: floyd_blocked-matrix
 	perf stat ./floyd_blocked-matrix
-
-run: floyd_openmp
 	perf stat ./floyd_openmp
+
+format: format
+	clang-format floyd_scalar.c
+	clang-format floyd_blocked-matrix.c
+	clang-format floyd_openmp.c
 
 clean:
 	rm -f floyd_scalar
