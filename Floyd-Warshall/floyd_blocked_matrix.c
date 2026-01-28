@@ -9,8 +9,7 @@
 
 #define INF 9999999
 
-static void init_matrix(float Dist[], int N)
-{
+static void init_matrix(float Dist[], int N) {
 	int i, j;
 
 	for (i = 0; i < N; i++)
@@ -27,8 +26,7 @@ static void init_matrix(float Dist[], int N)
 		}
 }
 
-static void checksum(float Dist[], int N)
-{
+static void checksum(float Dist[], int N) {
 	int i, j;
 	float checksum = 0;
 
@@ -81,8 +79,7 @@ void floyd_warshall_blocked(float* output, const int n, const int b) {
 	}
 }
 
-void floyd(float Dist[], int N, int NTHR)
-{
+void floyd(float Dist[], int N, int NTHR) {
 	int i, j, k;
 
 	for (k = 0; k < N; k++) {
@@ -99,8 +96,7 @@ void floyd(float Dist[], int N, int NTHR)
 	}
 }
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
 	int N = 3000;
 	int NTHR = 1;
 
