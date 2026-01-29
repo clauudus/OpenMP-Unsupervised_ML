@@ -68,8 +68,8 @@ void floyd_warshall_blocked(float *output, const int n, const int b)
 					&output[k * b * n + k * b],
 					&output[k * b * n + k * b], b, n);
 
-//Row k - paralelizable
-#pragma omp parallel for schedule(static)
+		//Row k - paralelizable
+		#pragma omp parallel for schedule(static)
 		for (j = 0; j < blocks; j++) {
 			if (j == k)
 				continue;
@@ -78,8 +78,9 @@ void floyd_warshall_blocked(float *output, const int n, const int b)
 						&output[k * b * n + j * b], b,
 						n);
 		}
-//Column k + 3rd phase - fully paralelizable
-#pragma omp parallel for private(j) schedule(static)
+		
+		//Column k + 3rd phase - fully paralelizable
+		#pragma omp parallel for private(j) schedule(static)
 		for (i = 0; i < blocks; i++) {
 			if (i == k)
 				continue;
@@ -104,7 +105,7 @@ void floyd(float Dist[], int N, int NTHR)
 	int i, j, k;
 
 	for (k = 0; k < N; k++) {
-#pragma omp parallel for private(i, j) schedule(static)
+		#pragma omp parallel for private(i, j) schedule(static)
 		for (i = 0; i < N; i++) {
 			float Dik = Dist[i * N + k];
 			for (j = 0; j < N; j++) {
