@@ -59,7 +59,6 @@ void floyd(float Dist[], int N, int NTHR)
 	}
 
 	checksum(Dist, N);
-	
 }
 
 int main(int argc, char **argv)
