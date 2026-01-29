@@ -58,16 +58,18 @@ void floyd_warshall_blocked(float* output, const int n, const int b) {
   	const int blocks = n / b;
   	int i, j;
 
-  	//[i][j] == [i * input_width * block_width + j * block_width]
+  	//Diagonal block [k][k] - non paralelizable
 	for (int k = 0; k < blocks; k++) {
 		floyd_warshall_in_place(&output[k*b*n + k*b], &output[k*b*n + k*b], &output[k*b*n + k*b], b, n);
-		#pragma omp parallel for private(j) schedule(static)
+		
+		//Row k - paralelizable
+		#pragma omp parallel for schedule(static)
 		for (j = 0; j < blocks; j++) {
     		if (j == k) continue;
       		floyd_warshall_in_place(&output[k*b*n + j*b], &output[k*b*n + k*b], &output[k*b*n + j*b], b, n);
     	}
-		//#pragma omp parallel for
-		#pragma omp parallel for private(i, j) schedule(static)
+		//Column k + 3rd phase - fully paralelizable
+		#pragma omp parallel for private(j) schedule(static)
     	for (i = 0; i < blocks; i++) {
       		if (i == k) continue;
       		floyd_warshall_in_place(&output[i*b*n + k*b], &output[i*b*n + k*b], &output[k*b*n + k*b], b, n);
