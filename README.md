@@ -1,4 +1,4 @@
-Project that explores the optimization of two unsupervised machine learning algorithms (K-means and FLoyd-Warshall).
+Project that explores the optimization of two algorithms (K-means and FLoyd-Warshall).
 Main objective of the project is to understand deeply how memory is distribuited and the usage of the private caché for each core in a multicore machine.
 To get to this goal, the codes make a use of OpenMP functionalities as well as code-based optimizations.
 
