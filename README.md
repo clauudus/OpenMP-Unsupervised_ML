@@ -11,16 +11,16 @@ This is still a draft, it is expected to have all the documentation and coding d
 ## Compiling and Running the Programs
 
 ### How to compile/run code:
-Feel free to use the Makefile to compile, run, and format the code with clang-format.
+  - Feel free to use the Makefile to compile, run, and format the code with clang-format.
 
 ### How to measure algorithm performance:
-Inside each directory, you will find "ejec.h", which runs the code and reports execution time using hyperfine.
+  - Inside each directory, you will find "ejec.h", which runs the code and reports execution time using hyperfine.
 
 ### How to find your machine specifications:
-In the main directory, you will find "config.sh". Running this script prints the key machine specifications that may significantly affect execution time.
+  - In the main directory, you will find "config.sh". Running this script prints the key machine specifications that may significantly affect execution time.
 
 ### Extra Explanations:
-To understand in a bigger depth the project and/or get a more guided step by setp code usage, please, check the Documentation pdf (included in the main directory).
+  - To understand in a bigger depth the project and/or get a more guided step by setp code usage, please, check the Documentation pdf (included in the main directory).
 
 ## Future Works
 
