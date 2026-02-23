@@ -1,5 +1,5 @@
 /*
-    This code is not part of my work, it was provided through the Virtual Campus from the Advanced Architectures course, from Computer Science bachelor degree.
+    This code is part of my work convined by code provided through the Virtual Campus from the Advanced Architectures course, from Computer Science bachelor degree.
     I am adding this code here only to illustrate the beginning of all the implementations.
     All rights reserved its respective the authors.
 */
@@ -130,3 +130,4 @@ void main(int argc, char **argv)
 
   printf("Numero de iteraciones necesarias: %d\n", cont);	
 }
+
