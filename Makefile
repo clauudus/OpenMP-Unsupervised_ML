@@ -2,6 +2,8 @@
 
 # --- Floyd-Warshall ---
 
+# If debbuging is needed, my recomendation would be to use the -fsanitize=address flag, to have a fast memory error detection
+
 floyd_scalar: Floyd-Warshall/floyd_scalar.c
 	gcc -O3 $^ -march=native -o floyd_scalar -Wall -Wextra
 
